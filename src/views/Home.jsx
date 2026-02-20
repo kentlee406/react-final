@@ -144,6 +144,12 @@ function Home() {
       <section className="mb-5">
         <Swiper
           modules={[Autoplay]}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          speed={800}
           spaceBetween={16}
           slidesPerView={1}
           loop={products.length > 1}
