@@ -1,0 +1,1 @@
+import{r,k as o}from"./vendor-DCgf3J4u.js";import{b as s}from"./vendor-router-BS-I_zzl.js";function n(){const t=s();return r.useEffect(()=>{const e=setTimeout(()=>{t("/")},3e3);return()=>clearTimeout(e)},[t]),o.jsx("p",{children:"此頁面不存在，三秒後返回首頁"})}export{n as default};

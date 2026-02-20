@@ -1,1 +1,0 @@
-import{r,k as o}from"./vendor-DCgf3J4u.js";import{b as s}from"./vendor-router-BS-I_zzl.js";function i(){const t=s();return r.useEffect(()=>{const e=setTimeout(()=>{t("/products")},3e3);return()=>clearTimeout(e)},[t]),o.jsx("p",{children:"此頁面不存在，三秒後返回產品列表畫面"})}export{i as default};
