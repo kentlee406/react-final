@@ -45,6 +45,17 @@ function Products() {
     }
   };
 
+  const getDiscountRate = (product) => {
+    const originPrice = Number(product.origin_price || 0);
+    const price = Number(product.price || 0);
+
+    if (!originPrice || originPrice <= price) {
+      return 0;
+    }
+
+    return ((originPrice - price) / originPrice) * 100;
+  };
+
   const categories = [
     "全部",
     ...new Set(products.map((product) => product.category).filter(Boolean)),
@@ -103,14 +114,22 @@ function Products() {
             ? currentProducts.map((product) => {
                 return (
                   <div className="col-12 col-md-6 col-lg-4" key={product.id}>
-                    <div className="card">
+                    <div className="card position-relative">
+                      {getDiscountRate(product) > 0 && (
+                        <span className="badge rounded-pill bg-danger position-absolute top-0 end-0 m-2">
+                          {`${getDiscountRate(product).toFixed(1)}% OFF`}
+                        </span>
+                      )}
                       <img
                         src={product.imageUrl}
                         className="card-img-top"
                         alt={product.title}
                       />
                       <div className="card-body">
-                        <h5 className="card-title">
+                        <h5
+                          className="card-title fw-bold"
+                          style={{ fontSize: "1.5em" }}
+                        >
                           <Link to={`/product/${product.id}`}>
                             {product.title}
                           </Link>
@@ -118,12 +137,18 @@ function Products() {
                             {product.category}
                           </span>
                         </h5>
+                        <p className="card-text text-secondary small mb-2">
+                          規格：{product.unit}
+                        </p>
 
                         <div className="d-flex">
                           <p className="card-text text-secondary">
-                            <del>{product.origin_price}</del>
+                            <del>${product.origin_price}</del>
                           </p>
-                          &nbsp;元 / {product.price} 元
+                          /
+                          <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+                            ${product.price}
+                          </span>
                         </div>
                         <button
                           type="button"

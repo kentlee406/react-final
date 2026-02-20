@@ -4,12 +4,12 @@ function NotFound() {
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/products");
+      navigate("/");
     }, 3000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
 
-  return <p>此頁面不存在，三秒後返回產品列表畫面</p>;
+  return <p>此頁面不存在，三秒後返回首頁</p>;
 }
 export default NotFound;

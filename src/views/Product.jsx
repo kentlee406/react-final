@@ -47,15 +47,18 @@ function Product() {
         alt={product.title}
         style={{ height: "50vh", width: "auto" }}
       />
-      <h2>
+      <h2 className="fw-bold">
         {product.title}
         <span className="badge bg-primary ms-2">{product.category}</span>
       </h2>
       <p>產品內容：{product.content}</p>
       <p>產品描述：{product.description}</p>
-      <p>單位：{product.unit}</p>
+      <p className="text-secondary small">規格：{product.unit}</p>
       <p>
-        <del>{product.origin_price}</del>&nbsp;元 / {product.price} 元
+        <del>${product.origin_price}</del>/
+        <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+          ${product.price}
+        </span>
       </p>
       <div className="row g-2">
         {" "}

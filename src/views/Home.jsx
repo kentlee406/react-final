@@ -157,16 +157,18 @@ function Home() {
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>
-              <img
-                src={product.imageUrl}
-                alt={product.title}
-                className="home-swiper-image"
-                style={{
-                  display: "block",
-                  margin: "0 auto",
-                  border: "2px solid var(--bs-success)",
-                }}
-              />
+              <Link to={`/product/${product.id}`}>
+                <img
+                  src={product.imageUrl}
+                  alt={product.title}
+                  className="home-swiper-image"
+                  style={{
+                    display: "block",
+                    margin: "0 auto",
+                    border: "2px solid var(--bs-success)",
+                  }}
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -213,18 +215,27 @@ function Home() {
                     style={productCardImageStyle}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">
+                    <h5
+                      className="card-title fw-bold"
+                      style={{ fontSize: "1.5em" }}
+                    >
                       <Link to={`/product/${product.id}`}>{product.title}</Link>
                       <span className="badge bg-primary ms-2">
                         {product.category}
                       </span>
                     </h5>
+                    <p className="card-text text-secondary small mb-2">
+                      規格：{product.unit}
+                    </p>
 
                     <div className="d-flex">
                       <p className="card-text text-secondary">
-                        <del>{product.origin_price}</del>
+                        <del>${product.origin_price}</del>
                       </p>
-                      &nbsp;元 / {product.price} 元
+                      /
+                      <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+                        ${product.price}
+                      </span>
                     </div>
                     <button
                       type="button"
@@ -261,18 +272,27 @@ function Home() {
                     style={productCardImageStyle}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">
+                    <h5
+                      className="card-title fw-bold"
+                      style={{ fontSize: "1.5em" }}
+                    >
                       <Link to={`/product/${product.id}`}>{product.title}</Link>
                       <span className="badge bg-primary ms-2">
                         {product.category}
                       </span>
                     </h5>
+                    <p className="card-text text-secondary small mb-2">
+                      規格：{product.unit}
+                    </p>
 
                     <div className="d-flex">
                       <p className="card-text text-secondary">
-                        <del>{product.origin_price}</del>
+                        <del>${product.origin_price}</del>
                       </p>
-                      &nbsp;元 / {product.price} 元
+                      /
+                      <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+                        ${product.price}
+                      </span>
                     </div>
                     <button
                       type="button"
