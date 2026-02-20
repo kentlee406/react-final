@@ -1,0 +1,120 @@
+// 使用 Sass color module，避免 darken() 舊語法警告
+@use "sass:color";
+
+$notification-success: #28a745;
+$notification-error: #dc3545;
+$notification-warning: #ffc107;
+$notification-info: #17a2b8;
+
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+
+  @media (max-width: 576px) {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+}
+
+.notification {
+  animation: slideIn 0.3s ease-out forwards;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 60px;
+
+  &.notification-success {
+    background-color: $notification-success;
+    color: white;
+    border-left: 4px solid color.adjust($notification-success, $lightness: -10%);
+  }
+
+  &.notification-error {
+    background-color: $notification-error;
+    color: white;
+    border-left: 4px solid color.adjust($notification-error, $lightness: -10%);
+  }
+
+  &.notification-warning {
+    background-color: $notification-warning;
+    color: #333;
+    border-left: 4px solid color.adjust($notification-warning, $lightness: -10%);
+  }
+
+  &.notification-info {
+    background-color: $notification-info;
+    color: white;
+    border-left: 4px solid color.adjust($notification-info, $lightness: -10%);
+  }
+}
+
+.notification-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.notification-message {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
