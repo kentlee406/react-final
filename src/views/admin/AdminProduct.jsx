@@ -7,6 +7,7 @@ import DeleteModal from "../../component/DeleteModal";
 import Pagination from "../../component/Pagination";
 import { LoadingContext } from "../../context/LoadingContext";
 import { useNotification } from "../../hooks/useNotification";
+import { getAuthToken, clearAuthToken } from "../../utils/authToken";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 function AdminProduct() {
@@ -69,15 +70,8 @@ function AdminProduct() {
     }
   };
 
-  const getTokenFromCookie = () => {
-    return document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("hexToken="))
-      ?.split("=")[1];
-  };
-
   const initializeAdminData = async () => {
-    const token = getTokenFromCookie();
+    const token = getAuthToken();
 
     if (!token) {
       showNotification("登入狀態已失效，請重新登入", "error", 8000);
@@ -105,8 +99,7 @@ function AdminProduct() {
       await axios.post(`${API_BASE}/logout`);
 
       // 登出成功後再清除 Cookie 與 axios 預設 header
-      document.cookie =
-        "hexToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      clearAuthToken();
       axios.defaults.headers.common.Authorization = "";
 
       navigate("/login");
@@ -133,6 +126,12 @@ function AdminProduct() {
                 onClick={() => openModal("create")}
               >
                 新增產品
+              </button>
+              <button
+                className="btn btn-success me-2"
+                onClick={() => navigate("/admin/order")}
+              >
+                訂單管理
               </button>
               <button className="btn btn-danger" onClick={handleLogout}>
                 登出

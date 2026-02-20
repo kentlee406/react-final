@@ -7,6 +7,21 @@ a {
   text-decoration: none;
   margin: 5px;
 }
+
+.btn {
+  font-size: 1.25em;
+}
+
+.header-nav-btn {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .header-nav-btn {
+    width: auto;
+  }
+}
+
 footer {
   text-align: center;
 }

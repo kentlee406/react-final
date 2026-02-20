@@ -10,6 +10,7 @@ const Products = lazy(() => import("../views/Products"));
 const NotFound = lazy(() => import("../views/NotFound"));
 const AdminLogin = lazy(() => import("../views/admin/AdminLogin"));
 const AdminProduct = lazy(() => import("../views/admin/AdminProduct"));
+const AdminOrder = lazy(() => import("../views/admin/AdminOrder"));
 
 // 統一包裝 Suspense，切頁載入時沿用既有 Loading UI
 const withSuspense = (Component) => (
@@ -31,6 +32,7 @@ const routes = [
   },
   { path: "login", element: withSuspense(AdminLogin) },
   { path: "admin/product", element: withSuspense(AdminProduct) },
+  { path: "admin/order", element: withSuspense(AdminOrder) },
   { path: "*", element: withSuspense(NotFound) },
 ];
 export default routes;

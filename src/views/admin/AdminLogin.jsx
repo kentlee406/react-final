@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { LoadingContext } from "../../context/LoadingContext";
 import { useNotification } from "../../hooks/useNotification";
+import { getAuthToken, setAuthToken } from "../../utils/authToken";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 function AdminLogin() {
@@ -19,8 +20,8 @@ function AdminLogin() {
     try {
       showLoading();
       const response = await axios.post(`${API_BASE}/admin/signin`, data);
-      const { token, expired } = response.data;
-      document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
+      const { token } = response.data;
+      setAuthToken(token);
       axios.defaults.headers.common.Authorization = `${token}`;
       navigate("/admin/product");
     } catch (error) {
@@ -30,10 +31,7 @@ function AdminLogin() {
   };
   useEffect(() => {
     // 嘗試從 Cookie 取得 Token
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("hexToken="))
-      ?.split("=")[1];
+    const token = getAuthToken();
 
     if (token) {
       // 如果有 Token，就直接執行驗證流程
