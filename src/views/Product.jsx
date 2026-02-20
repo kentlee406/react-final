@@ -56,7 +56,10 @@ function Product() {
       <p className="text-secondary small">規格：{product.unit}</p>
       <p>
         <del>${product.origin_price}</del>/
-        <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+        <span
+          className="text-danger fw-bold ms-1"
+          style={{ fontSize: "1.5em" }}
+        >
           ${product.price}
         </span>
       </p>

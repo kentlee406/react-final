@@ -233,7 +233,10 @@ function Home() {
                         <del>${product.origin_price}</del>
                       </p>
                       /
-                      <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+                      <span
+                        className="text-danger fw-bold ms-1"
+                        style={{ fontSize: "1.5em" }}
+                      >
                         ${product.price}
                       </span>
                     </div>
@@ -290,7 +293,10 @@ function Home() {
                         <del>${product.origin_price}</del>
                       </p>
                       /
-                      <span className="text-danger fw-bold ms-1" style={{ fontSize: "1.5em" }}>
+                      <span
+                        className="text-danger fw-bold ms-1"
+                        style={{ fontSize: "1.5em" }}
+                      >
                         ${product.price}
                       </span>
                     </div>
