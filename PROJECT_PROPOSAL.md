@@ -61,7 +61,7 @@ Tech Choice 3C電子商務是一個現代化的線上購物平台，專門銷售
 ### （二）專題結構圖
 
 ```
-react-week5/
+react-final/
 ├── src/
 │   ├── Layout.jsx              (主應用布局)
 │   ├── main.jsx                (入口文件)

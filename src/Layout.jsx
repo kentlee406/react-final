@@ -15,7 +15,9 @@ function Layout() {
       </header>
       <Outlet />
       <footer>
-        <p>僅個人作品練習，無任何商業用途。最近修改日期：2026年2月20日。</p>
+        <p>
+          僅個人作品練習，無任何商業用途。最近修改日期：2026年2月20日。v-final
+        </p>
       </footer>
     </div>
   );
