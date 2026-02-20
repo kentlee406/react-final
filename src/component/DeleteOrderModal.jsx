@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import { formatApiErrorMessage } from "../utils/formatApiErrorMessage";
 

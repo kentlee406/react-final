@@ -5,7 +5,7 @@ import { Modal } from "bootstrap";
 import ProductModal from "../../component/ProductModal";
 import DeleteModal from "../../component/DeleteModal";
 import Pagination from "../../component/Pagination";
-import { LoadingContext } from "../../context/LoadingContext";
+import { LoadingContext } from "../../context/loadingContext";
 import { useNotification } from "../../hooks/useNotification";
 import { getAuthToken, clearAuthToken } from "../../utils/authToken";
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -118,28 +118,31 @@ function AdminProduct() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-8">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h2 className="fw-bold">產品列表</h2>
-            <div>
+          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-2 mb-3">
+            <h2 className="fw-bold w-100 w-lg-auto mb-0">產品列表</h2>
+            <div className="d-flex flex-column flex-sm-row flex-wrap gap-2 w-100 w-lg-auto">
               <button
-                className="btn btn-success me-2"
+                className="btn btn-success header-nav-btn"
                 onClick={() => openModal("create")}
               >
                 新增產品
               </button>
               <button
-                className="btn btn-success me-2"
+                className="btn btn-success header-nav-btn"
                 onClick={() => navigate("/admin/order")}
               >
                 訂單管理
               </button>
-              <button className="btn btn-danger" onClick={handleLogout}>
+              <button
+                className="btn btn-danger header-nav-btn"
+                onClick={handleLogout}
+              >
                 登出
               </button>
             </div>
           </div>
 
-          <table className="table">
+          <table className="table admin-responsive-table">
             <thead>
               <tr>
                 <th>分類</th>
@@ -155,12 +158,14 @@ function AdminProduct() {
               {products && products.length > 0 ? (
                 products.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.category}</td>
-                    <td>{item.title}</td>
-                    <td>{item.origin_price}</td>
-                    <td>{item.price}</td>
-                    <td>{item.is_enabled ? "啟用" : "未啟用"}</td>
-                    <td>
+                    <td data-label="分類">{item.category}</td>
+                    <td data-label="產品名稱">{item.title}</td>
+                    <td data-label="原價">{item.origin_price}</td>
+                    <td data-label="售價">{item.price}</td>
+                    <td data-label="是否啟用">
+                      {item.is_enabled ? "啟用" : "未啟用"}
+                    </td>
+                    <td data-label="編輯">
                       <button
                         className="btn btn-primary"
                         onClick={() => openModal("edit", item)}
@@ -168,7 +173,7 @@ function AdminProduct() {
                         編輯
                       </button>
                     </td>
-                    <td>
+                    <td data-label="刪除">
                       <button
                         type="button"
                         className="btn btn-danger"

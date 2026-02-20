@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import { getAuthToken } from "../utils/authToken";
 
@@ -147,15 +147,15 @@ function Home() {
           spaceBetween={16}
           slidesPerView={1}
           loop={products.length > 1}
+          style={{ width: "100%", maxWidth: "100%" }}
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>
               <img
                 src={product.imageUrl}
                 alt={product.title}
+                className="home-swiper-image"
                 style={{
-                  height: "70vh",
-                  width: "auto",
                   display: "block",
                   margin: "0 auto",
                   border: "2px solid var(--bs-success)",
@@ -195,7 +195,7 @@ function Home() {
 
       {hotSaleProducts.length >= 3 && (
         <section className="mb-5">
-          <h2>熱銷產品</h2>
+          <h2 className="fw-bold">熱銷產品</h2>
           <div className="row g-4">
             {hotSaleProducts.map((product) => (
               <div className="col-12 col-md-6 col-lg-4" key={product.id}>
@@ -240,7 +240,7 @@ function Home() {
 
       {promoProducts.length >= 3 && (
         <section className="mb-5">
-          <h2>促銷產品</h2>
+          <h2 className="fw-bold">促銷產品</h2>
           <div className="row g-4">
             {promoProducts.map((product) => (
               <div className="col-12 col-md-6 col-lg-4" key={product.id}>

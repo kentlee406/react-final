@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { createElement, lazy, Suspense } from "react";
 import Loading from "../component/Loading";
 
 // 路由層級延遲載入：降低銀幕載入體積
@@ -13,9 +13,9 @@ const AdminProduct = lazy(() => import("../views/admin/AdminProduct"));
 const AdminOrder = lazy(() => import("../views/admin/AdminOrder"));
 
 // 統一包裝 Suspense，切頁載入時沿用既有 Loading UI
-const withSuspense = (Component) => (
+const withSuspense = (component) => (
   <Suspense fallback={<Loading forceShow />}>
-    <Component />
+    {createElement(component)}
   </Suspense>
 );
 

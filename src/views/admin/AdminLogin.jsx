@@ -2,11 +2,10 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { LoadingContext } from "../../context/LoadingContext";
+import { LoadingContext } from "../../context/loadingContext";
 import { useNotification } from "../../hooks/useNotification";
 import { getAuthToken, setAuthToken } from "../../utils/authToken";
 const API_BASE = import.meta.env.VITE_API_BASE;
-const API_PATH = import.meta.env.VITE_API_PATH;
 function AdminLogin() {
   const navigate = useNavigate();
   const { showLoading, hideLoading } = useContext(LoadingContext);
@@ -22,46 +21,39 @@ function AdminLogin() {
       const response = await axios.post(`${API_BASE}/admin/signin`, data);
       const { token } = response.data;
       setAuthToken(token);
-      axios.defaults.headers.common.Authorization = `${token}`;
       navigate("/admin/product");
-    } catch (error) {
+    } catch {
       showNotification("登入失敗，請檢查帳號密碼", "error", 8000);
       hideLoading();
     }
   };
-  useEffect(() => {
-    // 嘗試從 Cookie 取得 Token
-    const token = getAuthToken();
 
-    if (token) {
-      // 如果有 Token，就直接執行驗證流程
-      checkLogin(token);
-    }
-  }, []); // 空陣列表示只在重新整理/首次進入時執行
-
-  async function checkLogin(token) {
+  const checkLogin = async (token) => {
     try {
       showLoading();
-      // 1. 設定 axios 預設 header
-      axios.defaults.headers.common.Authorization = token;
-
-      // 2. 呼叫檢查 API
-      await axios.post(`${API_BASE}/api/user/check`);
-
-      // 3. 驗證成功後直接進入後台
+      await axios.post(`${API_BASE}/api/user/check`, null, {
+        headers: {
+          Authorization: token,
+        },
+      });
       navigate("/admin/product");
     } catch {
       console.error("驗證失敗或 Token 已過期，請重新登入");
-      // 驗證失敗可以選擇清空 header，讓使用者留在登入頁
-      axios.defaults.headers.common.Authorization = "";
       hideLoading();
     }
-  }
+  };
+
+  useEffect(() => {
+    const token = getAuthToken();
+    if (token) {
+      checkLogin(token);
+    }
+  }, []);
 
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-6">
+        <div className="col-12 col-lg-6">
           <h2>後台登入</h2>
           <form
             id="form"

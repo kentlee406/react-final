@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useCallback, useRef } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { LoadingContext } from "../../context/LoadingContext";
+import { LoadingContext } from "../../context/loadingContext";
 import { useNotification } from "../../hooks/useNotification";
 import { clearAuthToken, getAuthToken } from "../../utils/authToken";
 import DeleteOrderModal from "../../component/DeleteOrderModal";
@@ -166,12 +166,12 @@ function AdminOrder() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-10">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h2 className="fw-bold">訂單管理</h2>
-            <div>
+          <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-2 mb-3">
+            <h2 className="fw-bold w-100 w-lg-auto mb-0">訂單管理</h2>
+            <div className="d-flex flex-column flex-sm-row flex-wrap gap-2 w-100 w-lg-auto">
               <button
                 type="button"
-                className="btn btn-danger me-2"
+                className="btn btn-danger header-nav-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#deleteAllOrdersModal"
                 disabled={isDeletingAll}
@@ -179,18 +179,21 @@ function AdminOrder() {
                 {isDeletingAll ? "刪除中..." : "刪除全部訂單"}
               </button>
               <button
-                className="btn btn-secondary me-2"
+                className="btn btn-secondary header-nav-btn"
                 onClick={() => navigate("/admin/product")}
               >
                 返回產品列表
               </button>
-              <button className="btn btn-danger" onClick={handleLogout}>
+              <button
+                className="btn btn-danger header-nav-btn"
+                onClick={handleLogout}
+              >
                 登出
               </button>
             </div>
           </div>
 
-          <table className="table align-middle">
+          <table className="table align-middle admin-responsive-table">
             <thead>
               <tr>
                 <th>訂單建立日期</th>
@@ -204,10 +207,12 @@ function AdminOrder() {
               {orders.length > 0 ? (
                 orders.map((order) => (
                   <tr key={order.id}>
-                    <td>{formatDateTime(order.create_at)}</td>
-                    <td>{order.user?.name || "-"}</td>
-                    <td>${formatPrice(order.total)}</td>
-                    <td>
+                    <td data-label="訂單建立日期">
+                      {formatDateTime(order.create_at)}
+                    </td>
+                    <td data-label="訂購人姓名">{order.user?.name || "-"}</td>
+                    <td data-label="訂購總額">${formatPrice(order.total)}</td>
+                    <td data-label="是否已付款">
                       <div className="form-check form-switch m-0">
                         <input
                           className="form-check-input"
@@ -228,7 +233,7 @@ function AdminOrder() {
                         </label>
                       </div>
                     </td>
-                    <td>
+                    <td data-label="操作">
                       <button
                         type="button"
                         className="btn btn-primary me-2"

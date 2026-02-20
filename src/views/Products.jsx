@@ -2,7 +2,7 @@ import axios from "axios";
 import "bootstrap";
 import { useState, useEffect, useContext } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import Pagination from "../component/Pagination";
 const API_BASE = import.meta.env.VITE_API_BASE;

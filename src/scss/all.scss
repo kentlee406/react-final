@@ -16,9 +16,60 @@ a {
   width: 100%;
 }
 
+.home-swiper-image {
+  height: 70vh;
+  width: auto;
+  max-width: 100%;
+}
+
 @media (min-width: 576px) {
   .header-nav-btn {
     width: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .home-swiper-image {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+  }
+
+  .admin-responsive-table {
+    border: 0;
+  }
+
+  .admin-responsive-table thead {
+    display: none;
+  }
+
+  .admin-responsive-table tbody,
+  .admin-responsive-table tr,
+  .admin-responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-responsive-table tr {
+    margin-bottom: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #fff;
+  }
+
+  .admin-responsive-table td {
+    border: 0;
+    padding: 6px 0;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .admin-responsive-table td[data-label]::before {
+    content: attr(data-label) "：";
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
   }
 }
 

@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
-import { Modal } from "bootstrap";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import { formatApiErrorMessage } from "../utils/formatApiErrorMessage";
 const API_BASE = import.meta.env.VITE_API_BASE;

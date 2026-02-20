@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { createHashRouter, RouterProvider } from "react-router";
 import { Provider } from "react-redux";
 import routes from "./routes/index.jsx";
-import { LoadingProvider } from "./context/LoadingContext";
+import { LoadingProvider } from "./context/LoadingContext.jsx";
 import { store } from "./store/index.js";
 import { Notification } from "./component/Notification";
 import "./scss/all.scss";

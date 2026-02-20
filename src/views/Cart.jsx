@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { MutatingDots } from "react-loader-spinner";
 import "../scss/loading.scss";
 

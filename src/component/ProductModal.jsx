@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { Modal } from "bootstrap";
-import { LoadingContext } from "../context/LoadingContext";
+import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import { formatApiErrorMessage } from "../utils/formatApiErrorMessage";
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -16,8 +16,8 @@ function ProductModal({ mode, tempProduct, getProductData }) {
     imagesUrl: tempProduct.imagesUrl || ["", "", "", ""],
   });
 
-  const [imageInput, setImageInput] = useState(""); // 暫存輸入框的網址
   const [isUploadingMainImage, setIsUploadingMainImage] = useState(false);
+  const [uploadingSubImageIndex, setUploadingSubImageIndex] = useState(-1);
   const modalElement = useRef(null);
   const modalInstance = useRef(null);
 
@@ -100,19 +100,46 @@ function ProductModal({ mode, tempProduct, getProductData }) {
     }
   };
 
-  // 新增圖片網址邏輯
-  const handleAddImage = () => {
-    if (!imageInput.trim()) return;
+  const handleSubImageUpload = async (index, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    const newImages = [...modalData.imagesUrl];
-    const emptyIndex = newImages.findIndex((url) => url === "");
+    const formData = new FormData();
+    formData.append("file-to-upload", file);
 
-    if (emptyIndex !== -1) {
-      newImages[emptyIndex] = imageInput;
-      setModalData((prev) => ({ ...prev, imagesUrl: newImages }));
-      setImageInput(""); // 清空輸入框
-    } else {
-      alert("最多只能上傳 4 張圖片");
+    try {
+      setUploadingSubImageIndex(index);
+      showLoading();
+
+      const response = await axios.post(
+        `${API_BASE}/api/${API_PATH}/admin/upload`,
+        formData,
+      );
+
+      const imageUrl = response.data?.imageUrl;
+      if (!imageUrl) {
+        throw new Error("上傳成功但未取得圖片網址");
+      }
+
+      setModalData((prev) => {
+        const newImages = [...(prev.imagesUrl || ["", "", "", ""])];
+        while (newImages.length < 4) newImages.push("");
+        newImages[index] = imageUrl;
+        return { ...prev, imagesUrl: newImages };
+      });
+
+      showNotification(`圖片 ${index + 1} 上傳成功`, "success", 6000);
+    } catch (error) {
+      showNotification(
+        `圖片 ${index + 1} 上傳失敗：` +
+          (error.response?.data?.message || error.message || "未知錯誤"),
+        "error",
+        8000,
+      );
+    } finally {
+      setUploadingSubImageIndex(-1);
+      hideLoading();
+      e.target.value = "";
     }
   };
 
@@ -124,6 +151,11 @@ function ProductModal({ mode, tempProduct, getProductData }) {
   };
 
   const handleSave = async () => {
+    if (Number(modalData.origin_price) < Number(modalData.price)) {
+      showNotification("原價不可小於售價", "error", 8000);
+      return;
+    }
+
     try {
       showLoading();
       const apiPath =
@@ -349,26 +381,21 @@ function ProductModal({ mode, tempProduct, getProductData }) {
                   <label className="form-label fw-bold">
                     其他圖片 (最多 4 張)
                   </label>
-                  <div className="input-group mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="輸入圖片連結"
-                      value={imageInput}
-                      onChange={(e) => setImageInput(e.target.value)}
-                    />
-                    <button
-                      className="btn btn-outline-primary"
-                      type="button"
-                      onClick={handleAddImage}
-                    >
-                      新增連結
-                    </button>
-                  </div>
-
                   <div className="row g-2">
                     {modalData.imagesUrl.map((url, index) => (
                       <div className="col-6" key={index}>
+                        <input
+                          type="file"
+                          className="form-control mb-2"
+                          accept="image/*"
+                          onChange={(e) => handleSubImageUpload(index, e)}
+                          disabled={uploadingSubImageIndex === index}
+                        />
+                        {uploadingSubImageIndex === index && (
+                          <small className="text-muted d-block mb-2">
+                            圖片 {index + 1} 上傳中...
+                          </small>
+                        )}
                         <div
                           className="border rounded bg-light d-flex align-items-center justify-content-center position-relative"
                           style={{ height: "100px", overflow: "hidden" }}
