@@ -64,7 +64,7 @@ function Cart() {
 
   return (
     <>
-      <table className="table">
+      <table className="table cart-responsive-table">
         <thead>
           <tr>
             <th colSpan="2">產品</th>
@@ -78,16 +78,16 @@ function Cart() {
           {cart.length > 0 ? (
             cart.map((item) => (
               <tr key={item.id}>
-                <td>
+                <td data-label="產品主圖">
                   <img
                     src={item.product.imageUrl || null}
                     alt={item.product.title}
                     width="100"
                   />
                 </td>
-                <td>{item.product.title}</td>
-                <td>{item.product.price}</td>
-                <td>
+                <td data-label="產品名稱">{item.product.title}</td>
+                <td data-label="單價">{item.product.price}</td>
+                <td data-label="數量">
                   <div className="d-flex align-items-center">
                     <button
                       className="btn btn-secondary btn-sm me-2"
@@ -154,8 +154,8 @@ function Cart() {
                     <span className="ms-2">{item.product.unit}</span>
                   </div>
                 </td>
-                <td>{item.final_total}</td>
-                <td>
+                <td data-label="價格">{item.final_total}</td>
+                <td data-label="操作">
                   <button
                     className="btn btn-danger btn-sm"
                     disabled={isLoading}
@@ -184,7 +184,7 @@ function Cart() {
               <td colSpan="6">購物車已清空</td>
             </tr>
           )}
-          <tr>
+          <tr className="cart-total-row">
             <td colSpan="4">
               <b>總金額</b>
             </td>
