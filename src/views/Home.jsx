@@ -6,7 +6,6 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
-import { getAuthToken } from "../utils/authToken";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -101,20 +100,10 @@ function Home() {
       );
       setProducts(productsResponse.data.products || []);
 
-      const token = getAuthToken();
-      if (token) {
-        const ordersResponse = await axios.get(
-          `${API_BASE}/api/${API_PATH}/admin/orders`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          },
-        );
-        setOrders(ordersResponse.data.orders || []);
-      } else {
-        setOrders([]);
-      }
+      const ordersResponse = await axios.get(
+        `${API_BASE}/api/${API_PATH}/orders`,
+      );
+      setOrders(ordersResponse.data.orders || []);
     } catch {
       showNotification("首頁資料載入失敗，請稍後再試", "error", 8000);
     } finally {
