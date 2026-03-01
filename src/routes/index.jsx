@@ -4,6 +4,8 @@ import Loading from "../component/Loading";
 // 路由層級延遲載入：降低銀幕載入體積
 const Layout = lazy(() => import("../Layout"));
 const Cart = lazy(() => import("../views/Cart"));
+const AboutUs = lazy(() => import("../views/AboutUs"));
+const FAQ = lazy(() => import("../views/FAQ"));
 const Home = lazy(() => import("../views/Home"));
 const Product = lazy(() => import("../views/Product"));
 const Products = lazy(() => import("../views/Products"));
@@ -28,6 +30,8 @@ const routes = [
       { path: "products", element: withSuspense(Products) },
       { path: "product/:id", element: withSuspense(Product) },
       { path: "cart", element: withSuspense(Cart) },
+      { path: "about", element: withSuspense(AboutUs) },
+      { path: "faq", element: withSuspense(FAQ) },
     ],
   },
   { path: "login", element: withSuspense(AdminLogin) },

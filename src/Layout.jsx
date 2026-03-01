@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router-dom";
 import Loading from "./component/Loading";
 
 function Layout() {
@@ -18,7 +18,16 @@ function Layout() {
             首頁
           </NavLink>
           <NavLink
-            to="/products"
+            to="about"
+            end
+            className={({ isActive }) =>
+              `btn ${isActive ? "btn-success" : "btn-outline-success"} header-nav-btn`
+            }
+          >
+            關於我們
+          </NavLink>
+          <NavLink
+            to="products"
             className={({ isActive }) =>
               `btn ${isActive ? "btn-success" : "btn-outline-success"} header-nav-btn`
             }
@@ -26,13 +35,27 @@ function Layout() {
             產品
           </NavLink>
           <NavLink
-            to="/cart"
+            to="cart"
             className={({ isActive }) =>
               `btn ${isActive ? "btn-success" : "btn-outline-success"} header-nav-btn`
             }
           >
             購物車
           </NavLink>
+          <NavLink
+            to="faq"
+            className={({ isActive }) =>
+              `btn ${isActive ? "btn-success" : "btn-outline-success"} header-nav-btn`
+            }
+          >
+            常見問題
+          </NavLink>
+        </nav>
+      </header>
+      <Outlet />
+      <footer>
+        <p>
+          僅個人作品練習，無任何商業用途。最近修改日期：2026年3月1日。歡迎提供建議與回饋！{" "}
           <NavLink
             to="/login"
             className={({ isActive }) =>
@@ -41,12 +64,6 @@ function Layout() {
           >
             後台登入
           </NavLink>
-        </nav>
-      </header>
-      <Outlet />
-      <footer>
-        <p>
-          僅個人作品練習，無任何商業用途。最近修改日期：2026年2月20日。歡迎提供建議與回饋！
         </p>
       </footer>
     </div>
