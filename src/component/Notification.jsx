@@ -15,6 +15,7 @@ export const Notification = () => {
           <div className="notification-content">
             <span className="notification-message">{notification.message}</span>
             <button
+              type="button"
               className="notification-close"
               onClick={() => hideNotification(notification.id)}
               aria-label="Close notification"

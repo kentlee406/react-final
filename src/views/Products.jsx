@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
 import Pagination from "../component/Pagination";
+import { formatPrice } from "../utils/formatPrice";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 function Products() {
@@ -113,7 +114,7 @@ function Products() {
           {filteredProducts && filteredProducts.length > 0
             ? currentProducts.map((product) => {
                 return (
-                  <div className="col-12 col-md-6 col-lg-4" key={product.id}>
+                  <div className="col-md-6 col-lg-4" key={product.id}>
                     <div className="card position-relative">
                       {getDiscountRate(product) > 0 && (
                         <span className="badge rounded-pill bg-danger position-absolute top-0 end-0 m-2">
@@ -143,14 +144,14 @@ function Products() {
 
                         <div className="d-flex">
                           <p className="card-text text-secondary">
-                            <del>${product.origin_price}</del>
+                            <del>${formatPrice(product.origin_price)}</del>
                           </p>
                           /
                           <span
                             className="text-danger fw-bold ms-1"
                             style={{ fontSize: "1.5em" }}
                           >
-                            ${product.price}
+                            ${formatPrice(product.price)}
                           </span>
                         </div>
                         <button

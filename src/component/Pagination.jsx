@@ -21,21 +21,21 @@ function Pagination({
               key={page}
               className={"page-item " + (page === currentPage ? "active" : "")}
             >
-              <a
+              <button
+                type="button"
                 className="page-link"
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   if (page !== currentPage) {
                     setCurrentPage(page);
                     if (onPageChange) {
                       onPageChange(page);
                     }
+                    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                   }
                 }}
               >
                 {page}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

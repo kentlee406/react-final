@@ -1,9 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Loading from "./component/Loading";
+import ScrollToTop from "./component/ScrollToTop";
 
 function Layout() {
   return (
     <div className="container">
+      <ScrollToTop />
       <Loading />
       <header className="mb-3 d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-2">
         <h1 className="w-100 w-lg-auto mb-0">Tech Choice 3C電子商務</h1>
@@ -55,7 +57,7 @@ function Layout() {
       <Outlet />
       <footer>
         <p>
-          僅個人作品練習，無任何商業用途。最近修改日期：2026年3月1日。歡迎提供建議與回饋！{" "}
+          僅個人作品練習，無任何商業用途。最近修改日期：2026年3月13日。歡迎提供建議與回饋！{" "}
           <NavLink
             to="/login"
             className={({ isActive }) =>

@@ -11,6 +11,7 @@ const Product = lazy(() => import("../views/Product"));
 const Products = lazy(() => import("../views/Products"));
 const NotFound = lazy(() => import("../views/NotFound"));
 const AdminLogin = lazy(() => import("../views/admin/AdminLogin"));
+const AdminLayout = lazy(() => import("../views/admin/AdminLayout"));
 const AdminProduct = lazy(() => import("../views/admin/AdminProduct"));
 const AdminOrder = lazy(() => import("../views/admin/AdminOrder"));
 
@@ -35,8 +36,14 @@ const routes = [
     ],
   },
   { path: "login", element: withSuspense(AdminLogin) },
-  { path: "admin/product", element: withSuspense(AdminProduct) },
-  { path: "admin/order", element: withSuspense(AdminOrder) },
+  {
+    path: "admin",
+    element: withSuspense(AdminLayout),
+    children: [
+      { path: "product", element: withSuspense(AdminProduct) },
+      { path: "order", element: withSuspense(AdminOrder) },
+    ],
+  },
   { path: "*", element: withSuspense(NotFound) },
 ];
 export default routes;

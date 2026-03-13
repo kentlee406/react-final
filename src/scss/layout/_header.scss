@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-nav-btn {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .header-nav-btn {
+    width: auto;
+  }
+}

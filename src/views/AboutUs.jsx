@@ -14,7 +14,7 @@ function AboutUs() {
 
       <section className="mb-5">
         <div className="row g-4">
-          <div className="col-12 col-md-6">
+          <div className="col-md-6">
             <div className="h-100 border rounded-3 p-4 bg-light">
               <h2 className="h4 fw-semibold mb-3">我們的故事</h2>
               <p className="mb-0 text-secondary">
@@ -24,7 +24,7 @@ function AboutUs() {
               </p>
             </div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-md-6">
             <div className="h-100 border rounded-3 p-4">
               <h2 className="h4 fw-semibold mb-3">我們重視的價值</h2>
               <ul className="mb-0 ps-3 text-secondary">
@@ -40,17 +40,17 @@ function AboutUs() {
       <section className="mb-5">
         <h2 className="h4 fw-semibold mb-3">為什麼選擇我們</h2>
         <div className="row g-3">
-          <div className="col-12 col-md-4">
+          <div className="col-md-4">
             <div className="border rounded-3 p-3 h-100">
               價格透明，促銷資訊一目了然
             </div>
           </div>
-          <div className="col-12 col-md-4">
+          <div className="col-md-4">
             <div className="border rounded-3 p-3 h-100">
               多元品類，從入門到進階都找得到
             </div>
           </div>
-          <div className="col-12 col-md-4">
+          <div className="col-md-4">
             <div className="border rounded-3 p-3 h-100">
               快速出貨與售後支援，購買更安心
             </div>

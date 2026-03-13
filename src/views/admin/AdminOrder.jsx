@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { LoadingContext } from "../../context/loadingContext";
 import { useNotification } from "../../hooks/useNotification";
-import { clearAuthToken, getAuthToken } from "../../utils/authToken";
+import { clearAuthToken } from "../../utils/authToken";
 import DeleteOrderModal from "../../component/DeleteOrderModal";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
@@ -130,37 +130,14 @@ function AdminOrder() {
     }
   };
 
-  const initializeAdminData = useCallback(async () => {
-    const token = getAuthToken();
-
-    if (!token) {
-      showNotification("登入狀態已失效，請重新登入", "error", 8000);
-      navigate("/login");
-      return;
-    }
-
-    try {
-      showLoading();
-      axios.defaults.headers.common.Authorization = token;
-      await axios.post(`${API_BASE}/api/user/check`);
-      await getOrdersData(false);
-    } catch {
-      axios.defaults.headers.common.Authorization = "";
-      showNotification("登入狀態已失效，請重新登入", "error", 8000);
-      navigate("/login");
-    } finally {
-      hideLoading();
-    }
-  }, [navigate, showLoading, hideLoading, getOrdersData]);
-
   useEffect(() => {
     if (hasInitialized.current) {
       return;
     }
 
     hasInitialized.current = true;
-    initializeAdminData();
-  }, [initializeAdminData]);
+    getOrdersData();
+  }, [getOrdersData]);
 
   return (
     <div className="container">
@@ -179,12 +156,14 @@ function AdminOrder() {
                 {isDeletingAll ? "刪除中..." : "刪除全部訂單"}
               </button>
               <button
+                type="button"
                 className="btn btn-secondary header-nav-btn"
                 onClick={() => navigate("/admin/product")}
               >
                 返回產品列表
               </button>
               <button
+                type="button"
                 className="btn btn-danger header-nav-btn"
                 onClick={handleLogout}
               >
@@ -290,7 +269,7 @@ function AdminOrder() {
               {selectedOrder ? (
                 <div className="container-fluid">
                   <div className="row g-3">
-                    <div className="col-12 col-lg-6">
+                    <div className="col-lg-6">
                       <div className="border rounded p-3 h-100">
                         <h6 className="fw-bold">訂購人資料</h6>
                         <p className="mb-1">
@@ -308,7 +287,7 @@ function AdminOrder() {
                       </div>
                     </div>
 
-                    <div className="col-12 col-lg-6">
+                    <div className="col-lg-6">
                       <div className="border rounded p-3 h-100">
                         <h6 className="fw-bold">訂單資料</h6>
                         <p className="mb-1">

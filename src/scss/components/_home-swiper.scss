@@ -1,0 +1,13 @@
+.home-swiper-image {
+  height: 70vh;
+  width: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 576px) {
+  .home-swiper-image {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+  }
+}

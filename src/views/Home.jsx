@@ -6,6 +6,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
+import { formatPrice } from "../utils/formatPrice";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -195,7 +196,7 @@ function Home() {
           <h2 className="fw-bold">熱銷產品</h2>
           <div className="row g-4">
             {hotSaleProducts.map((product) => (
-              <div className="col-12 col-md-6 col-lg-4" key={product.id}>
+              <div className="col-md-6 col-lg-4" key={product.id}>
                 <div className="card">
                   <img
                     src={product.imageUrl}
@@ -219,14 +220,14 @@ function Home() {
 
                     <div className="d-flex">
                       <p className="card-text text-secondary">
-                        <del>${product.origin_price}</del>
+                        <del>${formatPrice(product.origin_price)}</del>
                       </p>
                       /
                       <span
                         className="text-danger fw-bold ms-1"
                         style={{ fontSize: "1.5em" }}
                       >
-                        ${product.price}
+                        ${formatPrice(product.price)}
                       </span>
                     </div>
                     <button
@@ -252,7 +253,7 @@ function Home() {
           <h2 className="fw-bold">促銷產品</h2>
           <div className="row g-4">
             {promoProducts.map((product) => (
-              <div className="col-12 col-md-6 col-lg-4" key={product.id}>
+              <div className="col-md-6 col-lg-4" key={product.id}>
                 <div className="card position-relative">
                   <span className="badge rounded-pill bg-danger position-absolute top-0 end-0 m-2">
                     {`${getDiscountRate(product).toFixed(1)}% OFF`}
@@ -279,14 +280,14 @@ function Home() {
 
                     <div className="d-flex">
                       <p className="card-text text-secondary">
-                        <del>${product.origin_price}</del>
+                        <del>${formatPrice(product.origin_price)}</del>
                       </p>
                       /
                       <span
                         className="text-danger fw-bold ms-1"
                         style={{ fontSize: "1.5em" }}
                       >
-                        ${product.price}
+                        ${formatPrice(product.price)}
                       </span>
                     </div>
                     <button
@@ -306,6 +307,36 @@ function Home() {
           </div>
         </section>
       )}
+
+      <section className="mb-5">
+        <h2 className="fw-bold">為什麼選 Tech Choice</h2>
+        <div className="row g-3">
+          <div className="col-md-4">
+            <div className="border rounded p-3 h-100 bg-light">
+              <h3 className="h5 fw-bold">價格透明</h3>
+              <p className="mb-0 text-secondary">
+                商品價格與促銷折扣清楚標示，不需反覆比價也能安心下單。
+              </p>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="border rounded p-3 h-100 bg-light">
+              <h3 className="h5 fw-bold">快速出貨</h3>
+              <p className="mb-0 text-secondary">
+                常態商品下單後儘速安排出貨，讓你更快拿到需要的設備。
+              </p>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="border rounded p-3 h-100 bg-light">
+              <h3 className="h5 fw-bold">售後支援</h3>
+              <p className="mb-0 text-secondary">
+                提供保固與客服協助流程，遇到問題時可快速取得處理建議。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

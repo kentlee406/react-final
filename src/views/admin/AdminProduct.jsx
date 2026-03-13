@@ -7,7 +7,8 @@ import DeleteModal from "../../component/DeleteModal";
 import Pagination from "../../component/Pagination";
 import { LoadingContext } from "../../context/loadingContext";
 import { useNotification } from "../../hooks/useNotification";
-import { getAuthToken, clearAuthToken } from "../../utils/authToken";
+import { clearAuthToken } from "../../utils/authToken";
+import { formatPrice } from "../../utils/formatPrice";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 function AdminProduct() {
@@ -47,7 +48,10 @@ function AdminProduct() {
         imagesUrl: [""],
       });
     } else {
-      setTempProduct(product);
+      setTempProduct({
+        ...product,
+        imagesUrl: [...(product.imagesUrl || [])],
+      });
     }
     // 手動取得該 Modal 實例並顯示
     const modalElement = document.getElementById("ProductModal");
@@ -65,29 +69,6 @@ function AdminProduct() {
       setCurrentPage(response.data.pagination.current_page);
     } catch {
       showNotification("取得後台產品資料失敗，請稍後再試", "error", 8000);
-    } finally {
-      hideLoading();
-    }
-  };
-
-  const initializeAdminData = async () => {
-    const token = getAuthToken();
-
-    if (!token) {
-      showNotification("登入狀態已失效，請重新登入", "error", 8000);
-      navigate("/login");
-      return;
-    }
-
-    try {
-      showLoading();
-      axios.defaults.headers.common.Authorization = token;
-      await axios.post(`${API_BASE}/api/user/check`);
-      await getProductData(1);
-    } catch {
-      axios.defaults.headers.common.Authorization = "";
-      showNotification("登入狀態已失效，請重新登入", "error", 8000);
-      navigate("/login");
     } finally {
       hideLoading();
     }
@@ -111,7 +92,7 @@ function AdminProduct() {
   };
 
   useEffect(() => {
-    initializeAdminData();
+    getProductData(1);
   }, []);
 
   return (
@@ -122,18 +103,21 @@ function AdminProduct() {
             <h2 className="fw-bold w-100 w-lg-auto mb-0">產品列表</h2>
             <div className="d-flex flex-column flex-sm-row flex-wrap gap-2 w-100 w-lg-auto">
               <button
+                type="button"
                 className="btn btn-success header-nav-btn"
                 onClick={() => openModal("create")}
               >
                 新增產品
               </button>
               <button
+                type="button"
                 className="btn btn-success header-nav-btn"
                 onClick={() => navigate("/admin/order")}
               >
                 訂單管理
               </button>
               <button
+                type="button"
                 className="btn btn-danger header-nav-btn"
                 onClick={handleLogout}
               >
@@ -160,13 +144,14 @@ function AdminProduct() {
                   <tr key={item.id}>
                     <td data-label="分類">{item.category}</td>
                     <td data-label="產品名稱">{item.title}</td>
-                    <td data-label="原價">{item.origin_price}</td>
-                    <td data-label="售價">{item.price}</td>
+                    <td data-label="原價">{formatPrice(item.origin_price)}</td>
+                    <td data-label="售價">{formatPrice(item.price)}</td>
                     <td data-label="是否啟用">
                       {item.is_enabled ? "啟用" : "未啟用"}
                     </td>
                     <td data-label="編輯">
                       <button
+                        type="button"
                         className="btn btn-primary"
                         onClick={() => openModal("edit", item)}
                       >

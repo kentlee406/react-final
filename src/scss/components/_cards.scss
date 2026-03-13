@@ -1,0 +1,20 @@
+.cards .card .card-img-top {
+  height: 30vh;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .cards .card .card-img-top {
+    height: 25vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .cards .card .card-img-top {
+    height: 20vh;
+  }
+}

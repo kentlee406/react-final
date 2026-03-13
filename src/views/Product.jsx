@@ -4,6 +4,7 @@ import axios from "axios";
 import "bootstrap";
 import { LoadingContext } from "../context/loadingContext";
 import { useNotification } from "../hooks/useNotification";
+import { formatPrice } from "../utils/formatPrice";
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 function Product() {
@@ -55,19 +56,19 @@ function Product() {
       <p>產品描述：{product.description}</p>
       <p className="text-secondary small">規格：{product.unit}</p>
       <p>
-        <del>${product.origin_price}</del>/
+        <del>${formatPrice(product.origin_price)}</del>/
         <span
           className="text-danger fw-bold ms-1"
           style={{ fontSize: "1.5em" }}
         >
-          ${product.price}
+          ${formatPrice(product.price)}
         </span>
       </p>
       <div className="row g-2">
         {" "}
         {/* g-2 是設定圖片間距 (gutter) */}
         {product.imagesUrl?.map((url, index) => (
-          <div key={index} className="col-12 col-md-6 col-lg-3">
+          <div key={index} className="col-md-6 col-lg-3">
             <img
               src={url}
               alt="小圖"
