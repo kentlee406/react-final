@@ -1,0 +1,1 @@
+import{r as t}from"./vendor-DCgf3J4u.js";import{d as e}from"./vendor-router-CPeYc4H-.js";function c(){const{pathname:o,search:r}=e();return t.useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})},[o,r]),null}export{c as S};
